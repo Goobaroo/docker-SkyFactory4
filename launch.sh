@@ -24,4 +24,5 @@ fi
 
 . ./settings.sh
 JVM_OPTS = $JVM_OPTS $JAVA_PARAMETERS
-java -server $JVM_OPTS -Dfml.queryResult=confirm -jar $SERVER_JAR nogui
+curl -o log4j2_112-116.xml https://launcher.mojang.com/v1/objects/02937d122c86ce73319ef9975b58896fc1b491d1/log4j2_112-116.xml
+java -server $JVM_OPTS -Dfml.queryResult=confirm -Dlog4j.configurationFile=log4j2_112-116.xml -jar $SERVER_JAR nogui
