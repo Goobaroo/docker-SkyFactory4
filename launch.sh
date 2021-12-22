@@ -4,10 +4,16 @@ set -x
 
 cd /data
 
-if ! [[ -f SkyFactory_4_Server_4.2.2.zip ]]; then
-	rm -fr config defaultconfigs global_data_packs global_resource_packs mods packmenu
-	curl -o SkyFactory_4_Server_4.2.2.zip https://media.forgecdn.net/files/3012/800/SkyFactory-4_Server_4.2.2.zip && unzip -u SkyFactory_4_Server_4.2.2.zip -d /data
+if ! [[ "$EULA" = "false" ]] || grep -i true eula.txt; then
 	echo "eula=true" > eula.txt
+else
+	echo "You must accept the EULA by in the container settings."
+	exit 9
+fi
+
+if ! [[ -f SkyFactory_4_Server_4.2.4.zip ]]; then
+	rm -fr config defaultconfigs global_data_packs global_resource_packs mods packmenu SkyFactory_4_Server_4*.zip
+	curl -o SkyFactory_4_Server_4.2.4.zip https://media.forgecdn.net/files/3565/687/SkyFactory-4_Server_4_2_4.zip && unzip -u -o SkyFactory_4_Server_4.2.4.zip -d /data
 	chmod +x Install.sh
 	./Install.sh
 fi
